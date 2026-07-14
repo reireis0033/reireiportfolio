@@ -50,6 +50,26 @@
     align-items:center; gap:20px;
   }
   .row-top .about-toggle{ justify-self:end; }
+
+  .back-btn{
+    justify-self:start;
+    display:flex; align-items:center; gap:8px;
+    padding:9px 16px;
+    border-radius:999px;
+    border:1.5px solid var(--line);
+    background:var(--paper-raised);
+    color:var(--ink);
+    font-size:14px; font-weight:600;
+    cursor:pointer;
+    white-space:nowrap;
+    transition: border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .back-btn svg{ width:16px; height:16px; }
+  .back-btn:hover{ border-color:var(--ink); }
+  @media (max-width:460px){
+    .back-btn .back-label{ display:none; }
+    .back-btn{ padding:9px; }
+  }
   .logo{
     font-family:'Fraunces', serif;
     font-weight:600; font-size:36px;

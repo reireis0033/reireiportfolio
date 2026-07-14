@@ -141,6 +141,22 @@
     if (e.key === 'Escape' && aboutOverlay.classList.contains('open')) closeAbout();
   });
 
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        activeCat = "All";
+        [...pillsNav.children].forEach(c => {
+          c.classList.toggle('active', c.textContent === "All");
+          c.setAttribute('aria-pressed', c.textContent === "All" ? "true" : "false");
+        });
+        render();
+      }
+    });
+  }
+
   resetBtn.addEventListener('click', () => {
     activeCat = "All";
     [...pillsNav.children].forEach(c => {
