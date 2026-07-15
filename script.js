@@ -1,3 +1,48 @@
+// Mobile nav-bar hamburger -> slide-down drawer (unchanged, mobile-only behavior)
+const drawer = document.getElementById('mobileDrawer');
+const hamMobile = document.getElementById('hamburgerMobile');
+function toggleDrawer(){
+  const isOpen = drawer.classList.toggle('open');
+  hamMobile.classList.toggle('open', isOpen);
+  hamMobile.setAttribute('aria-expanded', isOpen);
+}
+hamMobile.addEventListener('click', toggleDrawer);
+function closeDrawer(){
+  drawer.classList.remove('open');
+  hamMobile.classList.remove('open');
+  hamMobile.setAttribute('aria-expanded','false');
+}
+
+// Chrome-bar hamburger -> solid black full-height flyout menu, works on desktop and mobile
+const hamChrome = document.getElementById('hamburgerChrome');
+const chromeFlyout = document.getElementById('chromeFlyout');
+const chromeFlyoutClose = document.getElementById('chromeFlyoutClose');
+function toggleFlyout(){
+  const isOpen = chromeFlyout.classList.toggle('open');
+  hamChrome.setAttribute('aria-expanded', isOpen);
+}
+function closeFlyout(){
+  chromeFlyout.classList.remove('open');
+  hamChrome.setAttribute('aria-expanded','false');
+}
+hamChrome.addEventListener('click', (e)=>{
+  e.stopPropagation();
+  toggleFlyout();
+});
+chromeFlyoutClose.addEventListener('click', closeFlyout);
+// Close flyout on outside click or Escape
+document.addEventListener('click', (e)=>{
+  if(chromeFlyout.classList.contains('open') && !chromeFlyout.contains(e.target) && e.target !== hamChrome){
+    closeFlyout();
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') closeFlyout();
+});
+
+
+
+
 (function () {
   const categories = ["All","Illustration","Logo","Poster","Ads","Character Design","Asset","Animation","Stickers","Emotes"];
   const BASE_URL = "https://sicervantesto12.github.io/IMAGESforportfolio/";
