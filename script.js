@@ -1,4 +1,3 @@
-
 (function () {
   const categories = ["All","Illustration","Logo","Poster","Ads","Character Design","Asset","Animation","Stickers","Emotes"];
   const BASE_URL = "https://sicervantesto12.github.io/IMAGESforportfolio/";
@@ -165,6 +164,59 @@
       c.setAttribute('aria-pressed', c.textContent === "All" ? "true" : "false");
     });
     render();
+  });
+
+  // ---------------------------------------------------------------
+  // Chrome bar: hamburger -> flyout menu, refresh button
+  // ---------------------------------------------------------------
+  const hamChrome = document.getElementById('hamburgerChrome');
+  const chromeFlyout = document.getElementById('chromeFlyout');
+  const chromeFlyoutClose = document.getElementById('chromeFlyoutClose');
+  const refreshBtn = document.getElementById('refreshBtn');
+  const flyoutHome = document.getElementById('flyoutHome');
+  const flyoutAbout = document.getElementById('flyoutAbout');
+
+  function toggleFlyout() {
+    const isOpen = chromeFlyout.classList.toggle('open');
+    hamChrome.setAttribute('aria-expanded', isOpen);
+  }
+  function closeFlyout() {
+    chromeFlyout.classList.remove('open');
+    hamChrome.setAttribute('aria-expanded', 'false');
+  }
+  hamChrome.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleFlyout();
+  });
+  chromeFlyoutClose.addEventListener('click', closeFlyout);
+  // Close flyout on outside click or Escape
+  document.addEventListener('click', (e) => {
+    if (chromeFlyout.classList.contains('open') && !chromeFlyout.contains(e.target) && e.target !== hamChrome) {
+      closeFlyout();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chromeFlyout.classList.contains('open')) closeFlyout();
+  });
+
+  refreshBtn.addEventListener('click', () => {
+    refreshBtn.classList.add('spin');
+    window.location.reload();
+  });
+
+  // "Gallery" resets the filter back to All and scrolls to the top
+  flyoutHome.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeFlyout();
+    resetBtn.click();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // "About" opens the existing about modal
+  flyoutAbout.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeFlyout();
+    aboutToggle.click();
   });
 
   // ---------------------------------------------------------------
